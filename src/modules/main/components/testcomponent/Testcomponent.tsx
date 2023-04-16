@@ -1,6 +1,7 @@
 import React from 'react';
 import {useElectron} from "../../../core/hooks/useElectron";
 import {EventElectronEnum} from "../../../core/utils/enums/electronEnums";
+import PrimaryButton from "../../../core/components/primaryButton/PrimaryButton";
 
 
 const Testcomponent = () => {
@@ -11,7 +12,7 @@ send(EventElectronEnum.CLOSE)
 
     return (
         <div>
-            <button onClick={quitHandler}>exit</button>
+            <PrimaryButton onClick={quitHandler}>exit</PrimaryButton>
         </div>
     );
 };

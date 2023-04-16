@@ -1,7 +1,5 @@
-const path = require('path')
-const url = require('url')
 const {app, BrowserWindow, ipcMain } = require('electron')
-
+const notifier = require('node-notifier');
 
 
 function createWindow() {
@@ -11,7 +9,7 @@ function createWindow() {
         // height: 150,
         icon:__dirname+'/img/sc.png',
         resizable: true,
-        frame:false, //рамка
+        // frame:false, //рамка
         webPreferences: {
             nodeIntegration: true,
             worldSafeExecuteJavaScript: true,
@@ -27,4 +25,19 @@ app.whenReady().then(createWindow)
 app.on('window-all-closed', ()=>{
     app.quit()
 })
-ipcMain.on('close',()=>app.quit())
+ipcMain.on('close',()=> {
+    app.quit()
+    // notifier.notify(
+    //     {
+    //         title: 'fdsf', // String. Required
+    //         message: 'sdfs', // String. Required if remove is not defined
+    //         'app-name': 'node-notifier',
+    //         urgency: undefined,
+    //         category: undefined,
+    //         hint: undefined
+    //     },
+    //     function (error, response) {
+    //         console.log(response);
+    //     }
+    // );
+})
