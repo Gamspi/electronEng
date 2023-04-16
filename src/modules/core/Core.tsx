@@ -1,9 +1,14 @@
 import React from 'react';
 import '../../App.css';
-import CoreLayout from "./layout/CoreLayout";
+import {BrowserRouter} from "react-router-dom";
+import CoreRouter from "./router/CoreRouter";
 
 function Core() {
-  return <CoreLayout/>
+    return (
+        <BrowserRouter>
+            <CoreRouter/>
+        </BrowserRouter>
+    )
 }
 
 export default Core;

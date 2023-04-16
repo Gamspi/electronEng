@@ -1,9 +1,10 @@
 import React from 'react';
 
+
 const CoreLayout = () => {
     return (
         <div>
-            it's working
+            it's working too
         </div>
     );
 };
