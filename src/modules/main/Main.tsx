@@ -1,9 +1,9 @@
 import React from 'react';
-import MainLayout from "./layout/MainLayout";
+import WordRouter from "./router/WordRouter";
 
 const Main = () => {
     return (
-        <MainLayout/>
+        <WordRouter/>
     );
 };
 

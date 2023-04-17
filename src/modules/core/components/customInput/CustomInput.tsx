@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {ComponentProps, FormEventHandler} from 'react';
 import {StyledCustomInput} from "./style";
-type Props = {
-    value?: string
 
-}
-const CustomInput = (props:Props) => {
+type Props = {
+    isError?: boolean
+} & ComponentProps<typeof StyledCustomInput>
+const CustomInput = (props: Props) => {
     return (
         <StyledCustomInput {...props}/>
     );

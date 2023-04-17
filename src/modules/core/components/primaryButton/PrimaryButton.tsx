@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {ComponentProps} from 'react';
 import StyledPrimaryButton from "./style";
+
+
 type Props = {
-    children?: React.ReactElement | string
-    onClick: ()=> void
-}
+} & ComponentProps<typeof StyledPrimaryButton>
 const PrimaryButton = (props : Props) => {
     return (
         <StyledPrimaryButton {...props}/>

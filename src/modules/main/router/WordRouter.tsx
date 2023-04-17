@@ -2,7 +2,7 @@ import React from 'react';
 import {Route, Routes} from "react-router";
 import routes from "./routes";
 
-const CoreRouter = () => {
+const WordRouter = () => {
     return (
         <>
             <Routes>
@@ -14,4 +14,4 @@ const CoreRouter = () => {
     );
 };
 
-export default CoreRouter;
+export default WordRouter;
