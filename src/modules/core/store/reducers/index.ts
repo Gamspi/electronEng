@@ -1,5 +1,4 @@
-import posts from './posts';
+import posts from './general';
 export default {
   posts,
-
 };
