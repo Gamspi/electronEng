@@ -10,6 +10,7 @@ const WordsList = () => {
         words,
         isShowAddForm,
         openAddFormHandler,
+        toGameHandler,
         closeAddFormHandler
     } = useController()
     return (
@@ -20,6 +21,9 @@ const WordsList = () => {
                 <WordsListItem item={item} key={item.id}/>
             ))}
             <StyledWordsListAddButton>
+                <PrimaryButton onClick={toGameHandler}>
+                    Game
+                </PrimaryButton>
                 <PrimaryButton onClick={openAddFormHandler}>
                     Add Word
                 </PrimaryButton>

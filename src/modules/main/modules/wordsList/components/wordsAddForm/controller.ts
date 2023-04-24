@@ -33,9 +33,12 @@ const useController = ({closeHandler}: ControllerArgs) => {
                 {
                     id: Date.now(),
                     isActive: true,
-                    firstWord,
-                    secondWord,
-                    thirdWord}
+                    value: {
+                        firstWord,
+                        secondWord,
+                        thirdWord
+                    }
+                }
             )
             closeForm()
         }

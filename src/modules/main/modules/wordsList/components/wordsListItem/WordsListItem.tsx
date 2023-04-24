@@ -7,18 +7,18 @@ import useController from "./controller";
 type Props = {
     item: Word
 }
-const WordsListItem = ({item: {id, firstWord, thirdWord, secondWord}}: Props) => {
+const WordsListItem = ({item: {id, value}}: Props) => {
     const {deleteItemHandler} = useController()
     return (
         <StyledWordListItem.CONTAINER>
             <StyledWordListItem.CELL>
-                {firstWord || <>&mdash;</>}
+                {value.firstWord || <>&mdash;</>}
             </StyledWordListItem.CELL>
             <StyledWordListItem.CELL>
-                {secondWord || <>&mdash;</>}
+                {value.secondWord || <>&mdash;</>}
             </StyledWordListItem.CELL>
             <StyledWordListItem.CELL>
-                {thirdWord || <>&mdash;</>}
+                {value.thirdWord || <>&mdash;</>}
             </StyledWordListItem.CELL>
             <StyledWordListItem.DELETE_BTN>
                 <PrimaryButton onClick={() => deleteItemHandler(id)}>

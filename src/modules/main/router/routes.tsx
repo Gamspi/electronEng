@@ -1,11 +1,16 @@
 import React from "react";
-import Main from "../../main/Main";
 import WordsList from "../modules/wordsList/WordsList";
+import {WordRoutesEnum} from "./wordRoutesEnum";
+import WordsGame from "../modules/wordsGame/WordsGame";
 
 const routes = [
     {
-        path: '/',
+        path: WordRoutesEnum.BASE,
         element: <WordsList/>
+    },
+    {
+        path: WordRoutesEnum.GAME,
+        element: <WordsGame/>
     },
 ]
 export default routes
