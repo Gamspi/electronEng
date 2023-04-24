@@ -1,30 +1,43 @@
 import React from 'react';
-import {StyledWordsForm} from "./style";
-import CustomInput from "../../../../../core/components/customInput/CustomInput";
+import {StyledWordsForm, StyledWordsFormContainer} from "./style";
+
 import useController from "./controller";
+import CustomInput from "../../../../../core/components/customInput/CustomInput";
 import PrimaryButton from "../../../../../core/components/primaryButton/PrimaryButton";
 
-const WordsForm = () => {
+
+
+type Props = {
+    isOpen: boolean
+    closeHandler: () => void
+}
+const WordsAddForm = ({isOpen, closeHandler}:Props) => {
     const {
         firstWord,
         thirdWord,
         secondWord,
-        submitHandler,
-        setFirstWordHandler,
-        setThirdWordHandler,
-        setSecondWordHandler,
-    } = useController()
+        containerRef,
+        updateFirstWord,
+        updateThirdWord,
+        updateSecondWord,
+        closeFormHandler,
+        formSubmitHandler
+    } = useController({closeHandler})
 
     return (
-        <StyledWordsForm onSubmit={submitHandler}>
-            <CustomInput value={firstWord.value} isError={firstWord.isError} onInput={setFirstWordHandler}/>
-            <CustomInput value={secondWord.value} isError={secondWord.isError} onInput={setSecondWordHandler}/>
-            <CustomInput value={thirdWord.value} isError={thirdWord.isError} onInput={setThirdWordHandler}/>
-            <PrimaryButton type='submit'>
-                Add item
-            </PrimaryButton>
-        </StyledWordsForm>
+        isOpen ?
+        <StyledWordsFormContainer onClick={closeFormHandler} ref={containerRef}>
+            <StyledWordsForm onSubmit={formSubmitHandler}>
+                <CustomInput value={firstWord} onInput={updateFirstWord}/>
+                <CustomInput value={secondWord} onInput={updateSecondWord}/>
+                <CustomInput value={thirdWord} onInput={updateThirdWord}/>
+                <PrimaryButton type='submit'>
+                    Add
+                </PrimaryButton>
+            </StyledWordsForm>
+        </StyledWordsFormContainer>
+        : null
     );
 };
 
-export default WordsForm;
+export default WordsAddForm;

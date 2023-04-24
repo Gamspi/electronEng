@@ -1,9 +1,6 @@
-import React, {ComponentProps} from 'react';
+import React from 'react';
 import StyledPrimaryButton from "./style";
-
-
-type Props = {
-} & ComponentProps<typeof StyledPrimaryButton>
+type Props =  React.ButtonHTMLAttributes<HTMLButtonElement>
 const PrimaryButton = (props : Props) => {
     return (
         <StyledPrimaryButton {...props}/>

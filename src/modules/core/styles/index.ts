@@ -13,13 +13,12 @@ const GlobalStyle = createGlobalStyle`
     background: ${Colors.BLACK};
     margin: 0;
     word-wrap: break-word;
-    display: flex;
-    flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
     font-style: normal;
     min-height: 100vh;
     width: 100vw;
+    position: relative;
   }
 
   html, body {

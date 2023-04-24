@@ -1,57 +1,66 @@
-import {FormEvent, useState} from "react";
+import {ChangeEvent, useRef, useState, MouseEvent} from "react";
+import {useAction} from "../../../../../core/hooks/useActions";
 
-const useController = () => {
-    const [firstWord, setFirstWord] = useState({isError: false, value: ''})
-    const [secondWord, setSecondWord] = useState({isError: false, value: ''})
-    const [thirdWord, setThirdWord] = useState({isError: false, value: ''})
+type ControllerArgs = {
+    closeHandler: () => void
+}
 
-    const setFirstWordHandler = (e: Event) => {
-        const target = e.target as HTMLInputElement
-        setFirstWord(perv => ({...perv, value: target.value}))
+const useController = ({closeHandler}: ControllerArgs) => {
+    const [firstWord, setFirstWord] = useState('')
+    const [secondWord, setSecondWord] = useState('')
+    const [thirdWord, setThirdWord] = useState('')
+    const containerRef = useRef<HTMLDivElement>(null)
+    const {addWord} = useAction()
+    const closeForm = () => {
+        setFirstWord('')
+        setSecondWord('')
+        setThirdWord('')
+        closeHandler()
     }
-    const setSecondWordHandler = (e: Event) => {
-        const target = e.target as HTMLInputElement
-        setSecondWord(perv => ({...perv, value: target.value}))
-    }
-    const setThirdWordHandler = (e: Event) => {
-        const target = e.target as HTMLInputElement
-        setThirdWord(perv => ({...perv, value: target.value}))
-    }
-    const checkValid = () =>{
-        let isValid = true
-        if (!firstWord.value.trim()) {
-            isValid = false
-            setFirstWord(perv => ({...perv, isError: true}))
+    const closeFormHandler = (e: MouseEvent<HTMLDivElement>) => {
+        if (containerRef.current === e.target) {
+            closeForm()
         }
-        if (!secondWord.value.trim()) {
-            isValid = false
-            setSecondWord(perv => ({...perv, isError: true}))
-        }
-        if (!thirdWord.value.trim()) {
-            isValid = false
-            setThirdWord(perv => ({...perv, isError: true}))
-        }
-        return isValid
     }
-    const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+
+    const checkValid = () => {
+        return (firstWord.trim() || secondWord.trim() || thirdWord.trim())
+    }
+    const formSubmitHandler = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if (checkValid()){
-            setFirstWord(perv => ({...perv, value: ''}))
-            setSecondWord(perv => ({...perv, value: ''}))
-            setThirdWord(perv => ({...perv, value: ''}))
+        if (checkValid()) {
+            addWord(
+                {
+                    id: Date.now(),
+                    isActive: true,
+                    firstWord,
+                    secondWord,
+                    thirdWord}
+            )
+            closeForm()
         }
-
     }
 
 
+    const updateFirstWord = (e: ChangeEvent<HTMLInputElement>) => {
+        setFirstWord(e.target.value)
+    }
+    const updateSecondWord = (e: ChangeEvent<HTMLInputElement>) => {
+        setSecondWord(e.target.value)
+    }
+    const updateThirdWord = (e: ChangeEvent<HTMLInputElement>) => {
+        setThirdWord(e.target.value)
+    }
     return {
         firstWord,
         thirdWord,
         secondWord,
-        submitHandler,
-        setFirstWordHandler,
-        setThirdWordHandler,
-        setSecondWordHandler
+        containerRef,
+        updateFirstWord,
+        updateThirdWord,
+        updateSecondWord,
+        closeFormHandler,
+        formSubmitHandler
     }
 }
 export default useController

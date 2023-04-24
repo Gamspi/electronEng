@@ -1,13 +1,15 @@
 import {Draft, PayloadAction} from '@reduxjs/toolkit';
 import {WordsState} from './types';
+import {Word} from "../../types/word";
 
 const reducers = {
-  setIsLoading: (
-    state: Draft<WordsState>,
-    {payload}: PayloadAction<any[]>,
-  ) => {
-    state.words = payload;
-  },
+    addWord: (
+        state: Draft<WordsState>,
+        {payload}: PayloadAction<Word>,
+    ) => {
+        state.words = [...state.words, payload];
+    },
+
 
 };
 
