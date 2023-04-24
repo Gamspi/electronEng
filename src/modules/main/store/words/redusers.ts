@@ -11,6 +11,14 @@ const reducers = {
     },
 
 
+    removeWord: (
+        state: Draft<WordsState>,
+        {payload}: PayloadAction<Word['id']>,
+    ) => {
+        state.words = state.words.filter(item => item.id !== payload)
+    },
+
+
 };
 
 export default reducers;

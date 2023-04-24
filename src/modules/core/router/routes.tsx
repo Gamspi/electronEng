@@ -3,7 +3,7 @@ import Main from "../../main/Main";
 
 const routes = [
     {
-        path: '',
+        path: '/',
         element: <Main/>
     },
 ]

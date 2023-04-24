@@ -1,22 +1,31 @@
 import React from 'react';
-import {StyledWordLostItemCell, StyledWordLostItemContainer} from "./style";
+import StyledWordListItem from "./style";
 import {Word} from "../../../../types/word";
+import PrimaryButton from "../../../../../core/components/primaryButton/PrimaryButton";
+import useController from "./controller";
+
 type Props = {
     item: Word
 }
-const WordsListItem = ({item: {firstWord, thirdWord,secondWord}}: Props) => {
+const WordsListItem = ({item: {id, firstWord, thirdWord, secondWord}}: Props) => {
+    const {deleteItemHandler} = useController()
     return (
-        <StyledWordLostItemContainer>
-            <StyledWordLostItemCell>
-                {firstWord}
-            </StyledWordLostItemCell>
-            <StyledWordLostItemCell>
+        <StyledWordListItem.CONTAINER>
+            <StyledWordListItem.CELL>
+                {firstWord || <>&mdash;</>}
+            </StyledWordListItem.CELL>
+            <StyledWordListItem.CELL>
                 {secondWord || <>&mdash;</>}
-            </StyledWordLostItemCell>
-            <StyledWordLostItemCell>
+            </StyledWordListItem.CELL>
+            <StyledWordListItem.CELL>
                 {thirdWord || <>&mdash;</>}
-            </StyledWordLostItemCell>
-        </StyledWordLostItemContainer>
+            </StyledWordListItem.CELL>
+            <StyledWordListItem.DELETE_BTN>
+                <PrimaryButton onClick={() => deleteItemHandler(id)}>
+                    &#10008;
+                </PrimaryButton>
+            </StyledWordListItem.DELETE_BTN>
+        </StyledWordListItem.CONTAINER>
     );
 };
 

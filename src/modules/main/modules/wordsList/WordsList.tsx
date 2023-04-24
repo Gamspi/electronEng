@@ -3,6 +3,7 @@ import WordsAddForm from "./components/wordsAddForm/WordsAddForm";
 import useController from "./controller";
 import PrimaryButton from "../../../core/components/primaryButton/PrimaryButton";
 import WordsListItem from "./components/wordsListItem/WordsListItem";
+import {StyledWordsListAddButton, StyledWordsListContainer} from "./style";
 
 const WordsList = () => {
     const {
@@ -12,16 +13,18 @@ const WordsList = () => {
         closeAddFormHandler
     } = useController()
     return (
-        <div>
+        <StyledWordsListContainer>
             <WordsAddForm isOpen={isShowAddForm} closeHandler={closeAddFormHandler}/>
-            <PrimaryButton onClick={openAddFormHandler}>
-                Add Word
-            </PrimaryButton>
 
-                {words.map(item => (
-                    <WordsListItem item={item} key={item.id}/>
-                ))}
-        </div>
+            {words.map(item => (
+                <WordsListItem item={item} key={item.id}/>
+            ))}
+            <StyledWordsListAddButton>
+                <PrimaryButton onClick={openAddFormHandler}>
+                    Add Word
+                </PrimaryButton>
+            </StyledWordsListAddButton>
+        </StyledWordsListContainer>
     );
 };
 

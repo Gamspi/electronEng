@@ -4,8 +4,9 @@ import WordsList from "../modules/wordsList/WordsList";
 
 const routes = [
     {
-        path: '',
+        path: '/',
         element: <WordsList/>
     },
 ]
 export default routes
+
