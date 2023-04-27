@@ -8,10 +8,8 @@ import PrimaryButton from "../../../../../core/components/primaryButton/PrimaryB
 
 
 type Props = {
-    isOpen: boolean
-    closeHandler: () => void
 }
-const WordsAddForm = ({isOpen, closeHandler}:Props) => {
+const WordsAddForm = ({}:Props) => {
     const {
         firstWord,
         thirdWord,
@@ -22,10 +20,10 @@ const WordsAddForm = ({isOpen, closeHandler}:Props) => {
         updateSecondWord,
         closeFormHandler,
         formSubmitHandler
-    } = useController({closeHandler})
+    } = useController()
 
     return (
-        isOpen ?
+
         <StyledWordsFormContainer onClick={closeFormHandler} ref={containerRef}>
             <StyledWordsForm onSubmit={formSubmitHandler}>
                 <CustomInput value={firstWord} onInput={updateFirstWord}/>
@@ -36,7 +34,7 @@ const WordsAddForm = ({isOpen, closeHandler}:Props) => {
                 </PrimaryButton>
             </StyledWordsForm>
         </StyledWordsFormContainer>
-        : null
+
     );
 };
 

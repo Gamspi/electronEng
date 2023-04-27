@@ -3,32 +3,27 @@ import WordsAddForm from "./components/wordsAddForm/WordsAddForm";
 import useController from "./controller";
 import PrimaryButton from "../../../core/components/primaryButton/PrimaryButton";
 import WordsListItem from "./components/wordsListItem/WordsListItem";
-import {StyledWordsListAddButton, StyledWordsListContainer} from "./style";
+import StyledWordsList from "./style";
 
 const WordsList = () => {
     const {
-        words,
-        isShowAddForm,
-        openAddFormHandler,
+        sortedWords,
         toGameHandler,
-        closeAddFormHandler
     } = useController()
     return (
-        <StyledWordsListContainer>
-            <WordsAddForm isOpen={isShowAddForm} closeHandler={closeAddFormHandler}/>
-
-            {words.map(item => (
-                <WordsListItem item={item} key={item.id}/>
-            ))}
-            <StyledWordsListAddButton>
+        <StyledWordsList.CONTAINER>
+            <WordsAddForm />
+            <StyledWordsList.BODY>
+                {sortedWords.map(item => (
+                    <WordsListItem item={item} key={item.id}/>
+                ))}
+            </StyledWordsList.BODY>
+            <StyledWordsList.ACTIONS>
                 <PrimaryButton onClick={toGameHandler}>
                     Game
                 </PrimaryButton>
-                <PrimaryButton onClick={openAddFormHandler}>
-                    Add Word
-                </PrimaryButton>
-            </StyledWordsListAddButton>
-        </StyledWordsListContainer>
+            </StyledWordsList.ACTIONS>
+        </StyledWordsList.CONTAINER>
     );
 };
 

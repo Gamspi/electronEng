@@ -4,15 +4,15 @@ import {useCallback, useEffect, useMemo, useState} from "react";
 import {useTypeSelector} from "../../../core/hooks/useTypeSelector";
 import {getRandom} from "../../../core/helper/getRandom";
 
-const useController = ()=> {
+const useController = () => {
     const navigate = useNavigate()
     const {words} = useTypeSelector(state => state.words)
     const [isGame, setIsGame] = useState(false)
-    const defaultWords = useMemo(()=> words.filter(item => item.isActive), [words])
+    const defaultWords = useMemo(() => words.filter(item => item.isActive), [words])
     const [wordsValues, setWordsValues] = useState(defaultWords)
 
-    const activeWord = useMemo(()=> {
-        if (wordsValues.length){
+    const activeWord = useMemo(() => {
+        if (wordsValues.length) {
             const word = wordsValues[getRandom(wordsValues.length)]
             const values = Object.values(word.value).filter(item => item)
             const value = values[getRandom(values.length)]
@@ -26,8 +26,12 @@ const useController = ()=> {
             value: ''
         }
     }, [wordsValues])
-    const nextWordHandler = () => {
-        setWordsValues(prev => prev.filter(item => item.id !== activeWord.id))
+    const nextWordHandler = (isCorrectly?: boolean) => {
+        if (isCorrectly) {
+            setWordsValues(prev => prev.filter(item => item.id !== activeWord.id))
+        } else {
+            setWordsValues(prev => prev.map(item => item))
+        }
     }
     const toBackHandler = () => {
         setIsGame(false)
@@ -36,9 +40,9 @@ const useController = ()=> {
     const startGame = () => {
         setIsGame(true)
     }
-    useEffect(()=> {
+    useEffect(() => {
         if (!wordsValues.length) {
-            alert('You are win')
+            alert('You won')
             setIsGame(false)
             setWordsValues(defaultWords)
         }

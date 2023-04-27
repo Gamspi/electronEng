@@ -3,19 +3,13 @@ import {Colors} from "../../../../../core/styles/enums/colors";
 
 export const StyledWordsForm = styled.form`
   display: flex;
-  flex-direction: column;
+  position: relative;
   gap: 1.6rem;
-
+  z-index: 1;
+  width: 100%;
+  
 `
 export const StyledWordsFormContainer = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 50;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+padding: .8rem 0;
   width: 100%;
-  height: 100%;
-  background: ${Colors.WHITE}4D; 
 `

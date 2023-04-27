@@ -26,8 +26,11 @@ const WordsGame = () => {
                     <StyledWordsGame.VALUE>
                         {activeWord.value}
                     </StyledWordsGame.VALUE>
-                    <PrimaryButton onClick={nextWordHandler}>
-                        next
+                    <PrimaryButton onClick={()=>nextWordHandler()}>
+                        wrong
+                    </PrimaryButton>
+                    <PrimaryButton onClick={()=>nextWordHandler(true)}>
+                        Correctly
                     </PrimaryButton>
                 </StyledWordsGame.BODY>
 

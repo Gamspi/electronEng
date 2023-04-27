@@ -1,11 +1,7 @@
 import {ChangeEvent, useRef, useState, MouseEvent} from "react";
 import {useAction} from "../../../../../core/hooks/useActions";
 
-type ControllerArgs = {
-    closeHandler: () => void
-}
-
-const useController = ({closeHandler}: ControllerArgs) => {
+const useController = () => {
     const [firstWord, setFirstWord] = useState('')
     const [secondWord, setSecondWord] = useState('')
     const [thirdWord, setThirdWord] = useState('')
@@ -15,7 +11,6 @@ const useController = ({closeHandler}: ControllerArgs) => {
         setFirstWord('')
         setSecondWord('')
         setThirdWord('')
-        closeHandler()
     }
     const closeFormHandler = (e: MouseEvent<HTMLDivElement>) => {
         if (containerRef.current === e.target) {

@@ -17,6 +17,20 @@ const reducers = {
     ) => {
         state.words = state.words.filter(item => item.id !== payload)
     },
+    changeActive: (
+        state: Draft<WordsState>,
+        {payload}: PayloadAction<Word['id']>,
+    ) => {
+        state.words = state.words.map(item => {
+            if (item.id === payload) {
+                return ({
+                    ...item,
+                    isActive: !item.isActive
+                })
+            }
+            return item
+        })
+    },
 
 
 };
