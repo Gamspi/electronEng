@@ -12,7 +12,7 @@ const WordsList = () => {
     } = useController()
     return (
         <StyledWordsList.CONTAINER>
-            <WordsAddForm />
+            <WordsAddForm/>
             <StyledWordsList.BODY>
                 {sortedWords.map(item => (
                     <WordsListItem item={item} key={item.id}/>

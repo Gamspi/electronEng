@@ -1,7 +1,12 @@
 import {ChangeEvent, useRef, useState, MouseEvent} from "react";
 import {useAction} from "../../../../../core/hooks/useActions";
+import useDate from "../../../../../core/hooks/useDate";
+import {Word} from "../../../../types/word";
+import {useTypeSelector} from "../../../../../core/hooks/useTypeSelector";
 
 const useController = () => {
+    const {addWord: dateAddWord} = useDate()
+    const {words} = useTypeSelector(state => state.words)
     const [firstWord, setFirstWord] = useState('')
     const [secondWord, setSecondWord] = useState('')
     const [thirdWord, setThirdWord] = useState('')
@@ -23,19 +28,18 @@ const useController = () => {
     }
     const formSubmitHandler = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault()
+        e.stopPropagation()
         if (checkValid()) {
-            addWord(
-                {
-                    id: Date.now(),
-                    isActive: true,
-                    value: {
-                        firstWord,
-                        secondWord,
-                        thirdWord
-                    }
+            const value = {
+                isActive: true,
+                value: {
+                    firstWord,
+                    secondWord,
+                    thirdWord
                 }
-            )
-            closeForm()
+            }
+            dateAddWord(value)
+            console.log(value)
         }
     }
 

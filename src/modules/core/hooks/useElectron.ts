@@ -5,8 +5,13 @@ const {ipcRenderer} = window.require("electron");
 
 export const useElectron = () =>{
 
-    const send = (event:EventElectronEnum ) => {
-        ipcRenderer.send('close', [])
+    const send = <T>(event:EventElectronEnum, arg?:string ) => {
+        return new Promise((resolve)=>{
+            ipcRenderer.once(event, (_:any, args:T)=>{
+                resolve(args)
+            })
+            ipcRenderer.send(event, arg)
+        })
     }
 
     return {

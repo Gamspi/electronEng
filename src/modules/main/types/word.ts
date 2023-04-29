@@ -4,7 +4,7 @@ export type WordValueType = {
     thirdWord: string,
 }
 export type Word ={
-    id: number,
+    id: number| string,
     isActive: boolean,
     value: WordValueType
 

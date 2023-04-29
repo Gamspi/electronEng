@@ -1,3 +1,4 @@
 export  enum EventElectronEnum {
-    CLOSE = 'close'
+    CLOSE = 'close',
+    SEND = 'send',
 }
