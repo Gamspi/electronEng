@@ -1,10 +1,19 @@
 const {app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path');
+const url = require('url');
 // const notifier = require('node-notifier');
 // const database = require('./dataBase/sqlite')
 const DateEventEnum = require("./dbEvents");
 const wordConverter = require("./converters/wordConverter");
 const {addWord} = require("./dataBase/controller");
+
+
+const startUrl = process.env.ELECTRON_START_URL || url.format({
+    pathname: path.join(__dirname, '../index.html'),
+    protocol: 'file:',
+    slashes: true,
+});
+
 function createWindow() {
     let win = new BrowserWindow({
         width: 300,
@@ -19,8 +28,7 @@ function createWindow() {
             contextIsolation: false,
         }
     });
-    // win.loadURL('http://localhost:3000');
-    win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`);
+    win.loadURL(startUrl);
     win.on('close', () => {
         win = null
     })

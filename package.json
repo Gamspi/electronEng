@@ -2,7 +2,7 @@
   "name": "English",
   "version": "0.1.0",
   "private": true,
-  "main": "electron/index.js",
+  "main": "public/electron.js",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
@@ -14,7 +14,6 @@
     "@types/react-dom": "^18.0.11",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
-    "electron": "^24.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
@@ -27,14 +26,14 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "elect": "electron .",
+    "elect": "set ELECTRON_START_URL=http://localhost:3000 && public/electron .",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build-electron": "mkdir /electron && robocopy electron /electron /S",
-    "package": "electron-builder build --mac --win -c.extraMetadata.main=build/electron/main.js --publish never"
-
+    "electron-pack": "build --em.main=build/electron.js",
+    "package": "electron-builder build --win -c.extraMetadata.main=build/electron/index.js --publish never",
+    "publish": "electron-builder build --mac --win --publish always"
   },
   "eslintConfig": {
     "extends": [
@@ -55,7 +54,16 @@
     ]
   },
   "devDependencies": {
+    "electron": "^24.1.1",
     "@types/react-speech-recognition": "^3.9.1",
     "@types/styled-components": "^5.1.26"
+  },
+  "build": {
+    "appId": "com.example.electron-cra",
+    "files": [
+      "./build/**/*",
+      "node_modules/**/*",
+      "./public/electron.js"
+    ]
   }
 }
