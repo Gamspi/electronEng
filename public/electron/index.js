@@ -69,8 +69,8 @@ ipcMain.on(DateEventEnum.GET_WORDS, (event) => {
         event.reply(DateEventEnum.GET_WORDS, response)
     })
 })
-ipcMain.on(DateEventEnum.CHANGE_ACTIVE_WORDS, (event, {id, isActive }) => {
-    console.log({id, isActive })
+ipcMain.on(DateEventEnum.CHANGE_ACTIVE_WORDS, (event, {id, isActive}) => {
+    console.log({id, isActive})
     DataBaseController.change({id, value: isActive, label: 'isActive'}).then((result) => {
         const response = result.map(item => WordConverter.toObject(item))
         event.reply(DateEventEnum.CHANGE_ACTIVE_WORDS, response)
@@ -80,14 +80,20 @@ ipcMain.on('DEV', () => {
     win.webContents.openDevTools()
 })
 
-ipcMain.on('ALERT', (_, {title, content}) => {
-    dialog.showErrorBox(title || '', content || '')
+ipcMain.on('ALERT', (event, {title, content}) => {
+    dialog.showMessageBox(win, {
+        buttons: ["Yes"],
+        title,
+        message: content
+    }).then(()=>{
+        event.reply('ALERT')
+    })
 })
 ipcMain.on('CONFIRM', (event, {content}) => {
     dialog.showMessageBox(win, {
-        buttons: ["No","Yes"],
+        buttons: ["No", "Yes"],
         message: content
-    }).then(({response})=>{
+    }).then(({response}) => {
         event.reply('CONFIRM', !!response)
     })
 })

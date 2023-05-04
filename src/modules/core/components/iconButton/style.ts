@@ -1,7 +1,7 @@
 import styled, {css} from "styled-components";
 import {Colors} from "../../styles/enums/colors";
 import {StyleArgsType} from "./IconButton";
-
+import {ColorType} from "../../styles/enums/colorType";
 
 const StyledIconButton = {
     body: styled.button<StyleArgsType>`
@@ -12,7 +12,18 @@ const StyledIconButton = {
       border-radius: 50%;
       cursor: pointer;
       transition: background-color .15s linear;
-
+      background: ${({colorType})=> {
+        switch (colorType) {
+          case ColorType.DANGER:
+            return Colors.RED
+          case ColorType.SUCCESS:
+            return Colors.GREEN
+          case ColorType.WARNING:
+            return Colors.ORANGE
+          default:
+            return Colors.WHITE
+        }
+      }};
       &:hover {
         background: #d7d7d7;
       }

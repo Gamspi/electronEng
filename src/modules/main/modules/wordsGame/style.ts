@@ -18,12 +18,17 @@ const StyledWordsGame = {
     `,
     VALUE: styled.div`
     font-size: 3.2rem;
+      margin-bottom: 3.2rem;
     `,
     BODY: styled.div`
       display: flex;
       gap: 1rem;
       align-items: center;
       flex-direction: column;
+    `,
+    Actions: styled.div`
+    display: flex;
+      gap: 1.6rem;
     `
 }
 export default StyledWordsGame

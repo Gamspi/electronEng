@@ -14,7 +14,13 @@ export const useElectron = () => {
         })
     }
     const Alert = (args: {title:string, content:string}) => {
-        ipcRenderer.send('ALERT', args)
+        return new Promise((resolve) => {
+            ipcRenderer.once('ALERT', () => {
+                resolve(true)
+            })
+            ipcRenderer.send('ALERT', args)
+        })
+
     }
     const Confirm = <T>(content?: string) => {
         return new Promise((resolve) => {

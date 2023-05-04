@@ -3,6 +3,7 @@ import {WordRoutesEnum} from "../../router/wordRoutesEnum";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {useTypeSelector} from "../../../core/hooks/useTypeSelector";
 import {getRandom} from "../../../core/helper/getRandom";
+import {useElectron} from "../../../core/hooks/useElectron";
 
 const useController = () => {
     const navigate = useNavigate()
@@ -10,6 +11,7 @@ const useController = () => {
     const [isGame, setIsGame] = useState(false)
     const defaultWords = useMemo(() => words.filter(item => item.isActive), [words])
     const [wordsValues, setWordsValues] = useState(defaultWords)
+    const {Alert} = useElectron()
 
     const activeWord = useMemo(() => {
         if (wordsValues.length) {
@@ -23,7 +25,7 @@ const useController = () => {
         }
         return {
             id: '',
-            value: ''
+            value: 'win'
         }
     }, [wordsValues])
     const nextWordHandler = (isCorrectly?: boolean) => {
@@ -42,9 +44,11 @@ const useController = () => {
     }
     useEffect(() => {
         if (!wordsValues.length) {
-            alert('You won')
-            setIsGame(false)
-            setWordsValues(defaultWords)
+            Alert({content:'You won', title: ''}).then(()=>{
+                setIsGame(false)
+                setWordsValues(defaultWords)
+            })
+
         }
 
     }, [defaultWords, wordsValues])

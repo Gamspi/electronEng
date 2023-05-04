@@ -1,7 +1,9 @@
 import React from 'react';
 import StyledIconButton from "./style";
+import {ColorType} from "../../styles/enums/colorType";
 export type StyleArgsType = {
     size?: number
+    colorType?: ColorType
 }
 type Props =  StyleArgsType & React.ButtonHTMLAttributes<HTMLButtonElement>
 
