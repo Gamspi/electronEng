@@ -1,1 +1,1 @@
-require('./electron')
+require('./electron/index.js')

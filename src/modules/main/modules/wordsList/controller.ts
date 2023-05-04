@@ -1,7 +1,8 @@
-import {useEffect, useMemo, useState} from "react";
+import {useMemo} from "react";
 import {useNavigate} from "react-router-dom";
 import {useTypeSelector} from "../../../core/hooks/useTypeSelector";
 import {WordRoutesEnum} from "../../router/wordRoutesEnum";
+
 
 const useController = () => {
     const {words} = useTypeSelector(state => state.words)

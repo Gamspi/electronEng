@@ -19,16 +19,26 @@ const useDate = () => {
             ipcRenderer.send(event, arg)
         })
     }
-    const deleteWord = (event:EventElectronEnum, arg: Word ) => {
+    const deleteWord = (arg: Word['id'] ) => {
         return new Promise((resolve)=>{
-            ipcRenderer.once(DateEventEnum.ADD_WORD, (_:any, response:any)=>{
+            ipcRenderer.once(DateEventEnum.REMOVE_WORD, (_:any, response:any)=>{
                 resolve(response)
             })
-            ipcRenderer.send(event, arg)
+            ipcRenderer.send(DateEventEnum.REMOVE_WORD, arg)
+        })
+    }
+    const getWords = () => {
+        return new Promise((resolve)=>{
+            ipcRenderer.once(DateEventEnum.GET_WORDS, (_:any, response:any)=>{
+                resolve(response)
+            })
+            ipcRenderer.send(DateEventEnum.GET_WORDS)
         })
     }
     return {
-        addWord
+        addWord,
+        getWords,
+        deleteWord
     }
 }
 

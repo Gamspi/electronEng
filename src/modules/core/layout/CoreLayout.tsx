@@ -1,11 +1,19 @@
 import React from 'react';
+import CoreRouter from "../router/CoreRouter";
+import StyledCoreLayout from "./style";
+import Header from "../components/header/Header";
 
 
 const CoreLayout = () => {
     return (
-        <div>
-            it's working too
-        </div>
+        <StyledCoreLayout.container>
+            <StyledCoreLayout.header>
+                <Header/>
+            </StyledCoreLayout.header>
+            <StyledCoreLayout.content>
+            <CoreRouter/>
+            </StyledCoreLayout.content>
+        </StyledCoreLayout.container>
     );
 };
 

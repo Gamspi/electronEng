@@ -1,27 +1,28 @@
-const {app, BrowserWindow, ipcMain } = require('electron')
+const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path');
 const url = require('url');
 // const notifier = require('node-notifier');
 // const database = require('./dataBase/sqlite')
 const DateEventEnum = require("./dbEvents");
-const wordConverter = require("./converters/wordConverter");
-const {addWord} = require("./dataBase/controller");
+const WordConverter = require("./converters/wordConverter");
+const {DataBaseController} = require("./dataBase/controller");
 
 
-const startUrl = process.env.ELECTRON_START_URL || url.format({
+const startUrl = app.isPackaged ? url.format({
     pathname: path.join(__dirname, '../index.html'),
     protocol: 'file:',
     slashes: true,
-});
-
+}) : 'http://localhost:3000'
+let win
 function createWindow() {
-    let win = new BrowserWindow({
-        width: 300,
-        height: 450,
-        // height: 150,
-        icon:__dirname+'/img/sc.png',
+    win = new BrowserWindow({
+        width: 1000,
+        height: 1000,
+        minHeight: 400,
+        minWidth: 768,
+        icon: __dirname + '/img/sc.png',
         resizable: true,
-        // frame:false, //рамка
+        frame:false, //рамка
         webPreferences: {
             nodeIntegration: true,
             worldSafeExecuteJavaScript: true,
@@ -33,35 +34,44 @@ function createWindow() {
         win = null
     })
 }
+
 app.whenReady().then(createWindow)
-app.on('window-all-closed', ()=>{
+app.on('window-all-closed', () => {
     app.quit()
 })
 app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
 })
-ipcMain.on('close',()=> {
+ipcMain.on('CLOSE', () => {
     app.quit()
-    // notifier.notify(
-    //     {
-    //         title: 'fdsf', // String. Required
-    //         message: 'sdfs', // String. Required if remove is not defined
-    //         'app-name': 'node-notifier',
-    //         urgency: undefined,
-    //         category: undefined,
-    //         hint: undefined
-    //     },
-    //     function (error, response) {
-    //         console.log(response);
-    //     }
-    // );
 })
-ipcMain.on('send',(event,arg)=> {
-event.reply('send', 'this is response')
+ipcMain.on('HIDE', () => {
+    win.minimize()
 })
-ipcMain.on(DateEventEnum.ADD_WORD,(event,word)=> {
-    addWord(wordConverter(word)).then((id)=>{
-        console.log(id)
+ipcMain.on('send', (event, arg) => {
+    event.reply('send', 'this is response')
+})
+ipcMain.on(DateEventEnum.ADD_WORD, (event, word) => {
+    DataBaseController.addWord(WordConverter.toArray(word)).then((id) => {
         event.reply(DateEventEnum.ADD_WORD, id)
     })
+})
+
+ipcMain.on(DateEventEnum.REMOVE_WORD, (event, id) => {
+    DataBaseController.removeWord(id).then((success) => {
+        event.reply(DateEventEnum.REMOVE_WORD, success)
+    })
+})
+ipcMain.on(DateEventEnum.GET_WORDS, (event) => {
+    DataBaseController.getWords().then((result) => {
+        console.log(result)
+        const response = result.map(item => WordConverter.toObject(item))
+        event.reply(DateEventEnum.GET_WORDS, response)
+    })
+})
+ipcMain.on('DEV', ()=>{
+    win.webContents.openDevTools()
+})
+
+ipcMain.on('DIALOG', ()=>{
 })

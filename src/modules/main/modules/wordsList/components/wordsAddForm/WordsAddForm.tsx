@@ -14,21 +14,19 @@ const WordsAddForm = ({}:Props) => {
         firstWord,
         thirdWord,
         secondWord,
-        containerRef,
         updateFirstWord,
         updateThirdWord,
         updateSecondWord,
-        closeFormHandler,
         formSubmitHandler
     } = useController()
 
     return (
 
-        <StyledWordsFormContainer onClick={closeFormHandler} ref={containerRef}>
+        <StyledWordsFormContainer >
             <StyledWordsForm onSubmit={formSubmitHandler}>
-                <CustomInput value={firstWord} onInput={updateFirstWord}/>
-                <CustomInput value={secondWord} onInput={updateSecondWord}/>
-                <CustomInput value={thirdWord} onInput={updateThirdWord}/>
+                <CustomInput value={firstWord} onInput={updateFirstWord} placeholder='First form'/>
+                <CustomInput value={secondWord} onInput={updateSecondWord} placeholder='second form'/>
+                <CustomInput value={thirdWord} onInput={updateThirdWord} placeholder='third form'/>
                 <PrimaryButton type='submit'>
                     Add
                 </PrimaryButton>

@@ -9,6 +9,12 @@ const reducers = {
     ) => {
         state.words = [...state.words, payload];
     },
+    updateList: (
+        state: Draft<WordsState>,
+        {payload}: PayloadAction<Word[]>,
+    ) => {
+        state.words = payload;
+    },
 
 
     removeWord: (

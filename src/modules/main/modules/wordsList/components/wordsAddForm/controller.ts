@@ -1,30 +1,22 @@
 import {ChangeEvent, useRef, useState, MouseEvent} from "react";
 import {useAction} from "../../../../../core/hooks/useActions";
 import useDate from "../../../../../core/hooks/useDate";
-import {Word} from "../../../../types/word";
 import {useTypeSelector} from "../../../../../core/hooks/useTypeSelector";
 
 const useController = () => {
     const {addWord: dateAddWord} = useDate()
-    const {words} = useTypeSelector(state => state.words)
     const [firstWord, setFirstWord] = useState('')
     const [secondWord, setSecondWord] = useState('')
     const [thirdWord, setThirdWord] = useState('')
-    const containerRef = useRef<HTMLDivElement>(null)
     const {addWord} = useAction()
-    const closeForm = () => {
+
+    const checkValid = () => {
+        return (firstWord.trim() && (secondWord.trim() || thirdWord.trim()))
+    }
+    const clearForm = () => {
         setFirstWord('')
         setSecondWord('')
         setThirdWord('')
-    }
-    const closeFormHandler = (e: MouseEvent<HTMLDivElement>) => {
-        if (containerRef.current === e.target) {
-            closeForm()
-        }
-    }
-
-    const checkValid = () => {
-        return (firstWord.trim() || secondWord.trim() || thirdWord.trim())
     }
     const formSubmitHandler = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -38,8 +30,15 @@ const useController = () => {
                     thirdWord
                 }
             }
-            dateAddWord(value)
-            console.log(value)
+            dateAddWord(value).then((result) => {
+                addWord({
+                    ...value,
+                    id: result
+                })
+                clearForm()
+            })
+        } else {
+            alert('No valid form')
         }
     }
 
@@ -57,11 +56,9 @@ const useController = () => {
         firstWord,
         thirdWord,
         secondWord,
-        containerRef,
         updateFirstWord,
         updateThirdWord,
         updateSecondWord,
-        closeFormHandler,
         formSubmitHandler
     }
 }
