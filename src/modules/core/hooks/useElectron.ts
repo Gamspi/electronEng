@@ -14,11 +14,19 @@ export const useElectron = () => {
         })
     }
     const Alert = (args: {title:string, content:string}) => {
-        ipcRenderer.send('DIALOG', args)
+        ipcRenderer.send('ALERT', args)
     }
-
+    const Confirm = <T>(content?: string) => {
+        return new Promise((resolve) => {
+            ipcRenderer.once('CONFIRM', (_: any, args: boolean) => {
+                resolve(args)
+            })
+            ipcRenderer.send('CONFIRM', {content})
+        })
+    }
     return {
         send,
-        Alert
+        Alert,
+        Confirm
     }
 }
