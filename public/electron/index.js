@@ -75,12 +75,6 @@ ipcMain.on('DEV', () => {
 
 ipcMain.on('ALERT', (_, {title, content}) => {
     dialog.showErrorBox(title || '', content || '')
-    dialog.showMessageBox(win, {
-        buttons: ["No","Yes"],
-        message: "Do you really want to quit?"
-    }).then((value)=>{
-        console.log(value)
-    })
 })
 ipcMain.on('CONFIRM', (event, {content}) => {
     dialog.showMessageBox(win, {
