@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain} = require('electron')
+const {app, BrowserWindow, ipcMain, dialog} = require('electron')
 const path = require('path');
 const url = require('url');
 // const notifier = require('node-notifier');
@@ -14,6 +14,7 @@ const startUrl = app.isPackaged ? url.format({
     slashes: true,
 }) : 'http://localhost:3000'
 let win
+
 function createWindow() {
     win = new BrowserWindow({
         width: 1000,
@@ -22,7 +23,7 @@ function createWindow() {
         minWidth: 768,
         icon: __dirname + '/img/sc.png',
         resizable: true,
-        frame:false, //рамка
+        frame: false, //рамка
         webPreferences: {
             nodeIntegration: true,
             worldSafeExecuteJavaScript: true,
@@ -69,9 +70,10 @@ ipcMain.on(DateEventEnum.GET_WORDS, (event) => {
         event.reply(DateEventEnum.GET_WORDS, response)
     })
 })
-ipcMain.on('DEV', ()=>{
+ipcMain.on('DEV', () => {
     win.webContents.openDevTools()
 })
 
-ipcMain.on('DIALOG', ()=>{
+ipcMain.on('DIALOG', (_, {title, content}) => {
+    dialog.showErrorBox(title || '', content || '')
 })

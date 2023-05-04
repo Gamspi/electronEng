@@ -2,6 +2,7 @@ import {ChangeEvent, useRef, useState, MouseEvent} from "react";
 import {useAction} from "../../../../../core/hooks/useActions";
 import useDate from "../../../../../core/hooks/useDate";
 import {useTypeSelector} from "../../../../../core/hooks/useTypeSelector";
+import {useElectron} from "../../../../../core/hooks/useElectron";
 
 const useController = () => {
     const {addWord: dateAddWord} = useDate()
@@ -9,6 +10,7 @@ const useController = () => {
     const [secondWord, setSecondWord] = useState('')
     const [thirdWord, setThirdWord] = useState('')
     const {addWord} = useAction()
+    const {Alert} = useElectron()
 
     const checkValid = () => {
         return (firstWord.trim() && (secondWord.trim() || thirdWord.trim()))
@@ -38,7 +40,7 @@ const useController = () => {
                 clearForm()
             })
         } else {
-            alert('No valid form')
+            Alert({title:'', content: 'No valid form'})
         }
     }
 

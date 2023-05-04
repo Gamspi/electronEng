@@ -23,6 +23,7 @@ const StyledWordsList = {
       margin-bottom: 5rem;
       overflow-y: auto;
       margin-right: 1rem;
+
     `
 }
 export default StyledWordsList

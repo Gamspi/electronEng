@@ -13,13 +13,8 @@ export const useElectron = () => {
             ipcRenderer.send(event, arg)
         })
     }
-    const Alert = () => {
-        return new Promise((resolve) => {
-            ipcRenderer.once('DIALOG', (_: any, args: any) => {
-                resolve(args)
-            })
-            ipcRenderer.send('DIALOG')
-        })
+    const Alert = (args: {title:string, content:string}) => {
+        ipcRenderer.send('DIALOG', args)
     }
 
     return {
