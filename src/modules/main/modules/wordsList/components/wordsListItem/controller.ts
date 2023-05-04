@@ -5,15 +5,21 @@ import {useElectron} from "../../../../../core/hooks/useElectron";
 
 const useController = ({id, value, isActive}: Word) => {
     const {removeWord, changeActive} = useAction()
+    const {changeActiveWord} = useDate()
     const {deleteWord} = useDate()
     const {Confirm} = useElectron()
 
     const changeActiveHandler = () => {
-        changeActive(id)
+        changeActiveWord({
+            id,
+            isActive: !isActive
+        }).then(()=>{
+            changeActive(id)
+        })
+
     }
     const deleteItemHandler = () => {
         Confirm('Are you sure?').then((value) => {
-            console.log(value)
             if (value) {
                 deleteWord(id).then((response) => {
                     if (response) removeWord(id)

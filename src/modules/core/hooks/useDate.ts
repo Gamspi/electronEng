@@ -35,10 +35,19 @@ const useDate = () => {
             ipcRenderer.send(DateEventEnum.GET_WORDS)
         })
     }
+    const changeActiveWord = (args: {id: Word['id'], isActive: boolean}) => {
+        return new Promise((resolve)=>{
+            ipcRenderer.once(DateEventEnum.CHANGE_ACTIVE_WORDS, (_:any, response:any)=>{
+                resolve(response)
+            })
+            ipcRenderer.send(DateEventEnum.CHANGE_ACTIVE_WORDS, args)
+        })
+    }
     return {
         addWord,
         getWords,
-        deleteWord
+        deleteWord,
+        changeActiveWord
     }
 }
 

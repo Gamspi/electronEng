@@ -24,6 +24,14 @@ class DataBaseController {
 
         })
     }
+    static change = ({label, value, id}) => {
+        return new Promise( (resolve) => {
+            database.run(`UPDATE ${DB_NAME} SET ${label}=? WHERE id=${id}`, [value],(err, rows) =>{
+                if (!err)resolve()
+            })
+
+        })
+    }
 }
 
 module.exports = {

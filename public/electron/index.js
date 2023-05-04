@@ -69,6 +69,13 @@ ipcMain.on(DateEventEnum.GET_WORDS, (event) => {
         event.reply(DateEventEnum.GET_WORDS, response)
     })
 })
+ipcMain.on(DateEventEnum.CHANGE_ACTIVE_WORDS, (event, {id, isActive }) => {
+    console.log({id, isActive })
+    DataBaseController.change({id, value: isActive, label: 'isActive'}).then((result) => {
+        const response = result.map(item => WordConverter.toObject(item))
+        event.reply(DateEventEnum.CHANGE_ACTIVE_WORDS, response)
+    })
+})
 ipcMain.on('DEV', () => {
     win.webContents.openDevTools()
 })
