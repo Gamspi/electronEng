@@ -64,8 +64,8 @@
     "electronmon": "^2.0.2"
   },
   "build": {
-    "appId": "com.electron.myapp",
-    "productName": "My Electron App",
+    "appId": "english_app",
+    "productName": "English",
     "files": [
       "build/**/*",
       "node_modules/**/*"

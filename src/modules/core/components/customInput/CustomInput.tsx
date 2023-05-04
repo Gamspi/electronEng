@@ -1,9 +1,11 @@
 import React from 'react';
 import {StyledCustomInput} from "./style";
-type Props = React.InputHTMLAttributes<HTMLInputElement>
-const CustomInput = (props:Props) => {
+type Props = {
+    inputRef?:  React.RefObject<HTMLInputElement>
+} & React.InputHTMLAttributes<HTMLInputElement>
+const CustomInput = ({inputRef, ...props}:Props) => {
     return (
-        <StyledCustomInput {...props}/>
+        <StyledCustomInput {...props} ref={inputRef}/>
     );
 };
 

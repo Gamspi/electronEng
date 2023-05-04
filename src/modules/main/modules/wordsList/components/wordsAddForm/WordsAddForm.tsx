@@ -12,34 +12,36 @@ const WordsAddForm = ({}: Props) => {
         firstWord,
         thirdWord,
         secondWord,
+        firstInput,
+        transcription,
         updateFirstWord,
         updateThirdWord,
         updateSecondWord,
-        formSubmitHandler
+        formSubmitHandler,
+        updateTranscription,
     } = useController()
 
     return (
 
         <StyledWordsForm.Container>
             <StyledWordsForm.Form onSubmit={formSubmitHandler}>
-                <StyledWordsForm.Input>
-                    <CustomInput value={firstWord} onInput={updateFirstWord} placeholder='First form'/>
-
-                </StyledWordsForm.Input>
-                <StyledWordsForm.Input>
-                    <CustomInput value={secondWord} onInput={updateSecondWord} placeholder='second form'/>
-
-                </StyledWordsForm.Input>
-                <StyledWordsForm.Input>
-                    <CustomInput value={thirdWord} onInput={updateThirdWord} placeholder='third form'/>
-
-                </StyledWordsForm.Input>
                 <StyledWordsForm.Button>
-                    <PrimaryButton type='submit'>
-                        Add
+                    <PrimaryButton>
                     </PrimaryButton>
                 </StyledWordsForm.Button>
-
+                <StyledWordsForm.Input>
+                    <CustomInput value={firstWord} onInput={updateFirstWord} placeholder='Infinitive'
+                                 inputRef={firstInput}/>
+                </StyledWordsForm.Input>
+                <StyledWordsForm.Input>
+                    <CustomInput value={secondWord} onInput={updateSecondWord} placeholder='Past Simple'/>
+                </StyledWordsForm.Input>
+                <StyledWordsForm.Input>
+                    <CustomInput value={thirdWord} onInput={updateThirdWord} placeholder='Past Participle'/>
+                </StyledWordsForm.Input>
+                <StyledWordsForm.Input>
+                    <CustomInput value={transcription} onInput={updateTranscription} placeholder='Translation'/>
+                </StyledWordsForm.Input>
             </StyledWordsForm.Form>
         </StyledWordsForm.Container>
 

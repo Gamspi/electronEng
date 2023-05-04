@@ -3,4 +3,5 @@ export  enum EventElectronEnum {
     SEND = 'SEND',
     DEV = 'DEV',
     HIDE = 'HIDE',
+    MAX = 'MAX',
 }

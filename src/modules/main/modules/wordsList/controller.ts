@@ -15,8 +15,7 @@ const useController = () => {
 
     const toGameHandler = () => {
         if (!words.filter(item => item.isActive).length) {
-            Alert({title: '',content:'You need some active words in the list'})
-            return
+            return Alert({title: '',content:'You need active words in the list'})
         } else {
             navigate(WordRoutesEnum.GAME)
         }

@@ -19,10 +19,12 @@ const StyledWordsForm = {
       }
     `,
     Button: styled.div`
+      grid-column: 1/5;
+      
+      display: none;
+      flex-direction: column;
       @media (max-width: 1024px) {
         grid-column: 1/4;
-        display: flex;
-        flex-direction: column;
       }
 
     `,
@@ -30,6 +32,12 @@ const StyledWordsForm = {
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      @media (max-width: 1024px) {
+        &:last-child { 
+          grid-column: 1/4;
+        }
+      }
+
     `
 }
 export default StyledWordsForm

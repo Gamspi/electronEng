@@ -19,7 +19,7 @@ function createWindow() {
     win = new BrowserWindow({
         width: 1000,
         height: 1000,
-        minHeight: 400,
+        minHeight: 500,
         minWidth: 768,
         icon: __dirname + '/img/sc.png',
         resizable: true,
@@ -49,6 +49,9 @@ ipcMain.on('CLOSE', () => {
 ipcMain.on('HIDE', () => {
     win.minimize()
 })
+ipcMain.on('MAX', () => {
+    win.maximize()
+})
 ipcMain.on('send', (event, arg) => {
     event.reply('send', 'this is response')
 })
@@ -72,8 +75,7 @@ ipcMain.on(DateEventEnum.GET_WORDS, (event) => {
 ipcMain.on(DateEventEnum.CHANGE_ACTIVE_WORDS, (event, {id, isActive}) => {
     console.log({id, isActive})
     DataBaseController.change({id, value: isActive, label: 'isActive'}).then((result) => {
-        const response = result.map(item => WordConverter.toObject(item))
-        event.reply(DateEventEnum.CHANGE_ACTIVE_WORDS, response)
+        event.reply(DateEventEnum.CHANGE_ACTIVE_WORDS, true)
     })
 })
 ipcMain.on('DEV', () => {

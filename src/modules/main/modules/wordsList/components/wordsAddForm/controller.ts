@@ -9,16 +9,19 @@ const useController = () => {
     const [firstWord, setFirstWord] = useState('')
     const [secondWord, setSecondWord] = useState('')
     const [thirdWord, setThirdWord] = useState('')
+    const [transcription, setTranscription] = useState('')
+    const firstInput = useRef<HTMLInputElement>(null)
     const {addWord} = useAction()
     const {Alert} = useElectron()
 
     const checkValid = () => {
-        return (firstWord.trim() && (secondWord.trim() || thirdWord.trim()))
+        return (firstWord.trim() && transcription.trim() && (secondWord.trim() || thirdWord.trim()))
     }
     const clearForm = () => {
         setFirstWord('')
         setSecondWord('')
         setThirdWord('')
+        setTranscription('')
     }
     const formSubmitHandler = (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -29,7 +32,8 @@ const useController = () => {
                 value: {
                     firstWord,
                     secondWord,
-                    thirdWord
+                    thirdWord,
+                    transcription
                 }
             }
             dateAddWord(value).then((result) => {
@@ -38,9 +42,10 @@ const useController = () => {
                     id: result
                 })
                 clearForm()
+                if (firstInput.current) firstInput.current.focus()
             })
         } else {
-            Alert({title:'', content: 'No valid form'})
+            void Alert({title:'', content: 'invalid form'})
         }
     }
 
@@ -54,14 +59,20 @@ const useController = () => {
     const updateThirdWord = (e: ChangeEvent<HTMLInputElement>) => {
         setThirdWord(e.target.value)
     }
+    const updateTranscription = (e: ChangeEvent<HTMLInputElement>) => {
+        setTranscription(e.target.value)
+    }
     return {
         firstWord,
         thirdWord,
         secondWord,
+        firstInput,
+        transcription,
         updateFirstWord,
         updateThirdWord,
         updateSecondWord,
-        formSubmitHandler
+        formSubmitHandler,
+        updateTranscription
     }
 }
 export default useController

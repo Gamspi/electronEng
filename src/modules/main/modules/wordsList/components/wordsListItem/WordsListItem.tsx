@@ -23,6 +23,9 @@ const WordsListItem = ({item}: Props) => {
             <StyledWordListItem.CELL>
                 {value.thirdWord || <>&mdash;</>}
             </StyledWordListItem.CELL>
+            <StyledWordListItem.CELL>
+                {value.transcription || <>&mdash;</>}
+            </StyledWordListItem.CELL>
             <StyledWordListItem.DELETE_BTN>
                 <PrimaryButton onClick={deleteItemHandler}>
                     &#10008;

@@ -4,7 +4,7 @@ const {DB_NAME} = require("./constants");
 class DataBaseController {
     static addWord = (word) => {
         return new Promise((resolve) => {
-            database.run(`INSERT INTO ${DB_NAME} (isActive, oneForm, twoForm, theeForm) VALUES (?,?,?,?)`, word)
+            database.run(`INSERT INTO ${DB_NAME} (isActive, oneForm, twoForm, theeForm, transcription) VALUES (?,?,?,?,?)`, word)
             database.get("SELECT last_insert_rowid() as id", function (err, row) {
                 resolve(row['id'])
             });

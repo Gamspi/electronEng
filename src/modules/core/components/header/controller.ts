@@ -12,7 +12,11 @@ const useController = () =>{
     const hideHandler = () =>{
         void send(EventElectronEnum.HIDE)
     }
+    const maxHandler = () =>{
+        void send(EventElectronEnum.MAX)
+    }
     return {
+        maxHandler,
         hideHandler,
         closeHandler,
         openDevHandler

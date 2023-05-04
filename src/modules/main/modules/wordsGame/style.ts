@@ -17,8 +17,9 @@ const StyledWordsGame = {
       top: .8rem;
     `,
     VALUE: styled.div`
-    font-size: 3.2rem;
+      font-size: 5rem;
       margin-bottom: 3.2rem;
+      text-shadow: .2rem .2rem .3rem black;
     `,
     BODY: styled.div`
       display: flex;
